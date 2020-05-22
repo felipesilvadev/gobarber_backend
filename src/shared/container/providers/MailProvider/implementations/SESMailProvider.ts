@@ -19,7 +19,7 @@ export default class SESMailProvider implements IMailProvider {
     this.client = nodemailer.createTransport({
       SES: new aws.SES({
         apiVersion: '2010-12-01',
-        region: 'sa-east-1',
+        region: 'us-east-1',
       }),
     });
   }
@@ -32,7 +32,7 @@ export default class SESMailProvider implements IMailProvider {
   }: ISendMailDTO): Promise<void> {
     const { name, email } = mailConfig.defaults.from;
 
-    const message = await this.client.sendMail({
+    await this.client.sendMail({
       from: {
         name: from?.name || name,
         address: from?.email || email,
@@ -44,8 +44,5 @@ export default class SESMailProvider implements IMailProvider {
       subject,
       html: await this.mailTemplateProvider.parse(templateData),
     });
-
-    console.log(to.email);
-    console.log(message);
   }
 }
