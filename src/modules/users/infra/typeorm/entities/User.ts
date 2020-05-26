@@ -37,7 +37,7 @@ class User {
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {
     if (!this.avatar) {
-      return null;
+      return 'https://api.adorable.io/avatars/280/gobarber';
     }
 
     switch (uploadConfig.driver) {
